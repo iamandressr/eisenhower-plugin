@@ -96,14 +96,7 @@ foreach ($tasks as $task) {
     padding: 5px 10px;
     margin-bottom: 5px;
     border-radius: 4px;
-}
-
-.task-card a {
-    display: inline-block;
-    width: 100%;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
+    cursor: grab;
 }
 
 .task-card small {
@@ -139,13 +132,16 @@ foreach ($tasks as $task) {
 
             <?php foreach ($tasks_by_priority[$priority] as $task): ?>
                 <div class="task-card"
+                     draggable="true"
+                     ondragstart="onDragStart(event)"
                      data-task-id="<?= $task['id'] ?>">
-                    <a href="<?= $this->url->href('TaskViewController', 'show', ['task_id' => $task['id'], 'project_id' => $project['id']]) ?>"
-                       draggable="true"
-                       ondragstart="onDragStart(event)"
-                       data-task-id="<?= $task['id'] ?>">
-                        <?= $this->text->e($task['title']) ?>
-                    </a>
+                    <?= $this->url->link(
+                        '<strong>' . $this->text->e($task['title']) . '</strong>',
+                        'TaskViewController',
+                        'show',
+                        ['task_id' => $task['id'], 'project_id' => $project['id']],
+                        false
+                    ) ?>
                     <?php if (!empty($task['assignee_name'])): ?>
                         <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                     <?php endif ?>
@@ -159,10 +155,8 @@ foreach ($tasks as $task) {
 
 <script>
 function onDragStart(event) {
-    const taskId = event.target.dataset.taskId;
-    if (taskId) {
-        event.dataTransfer.setData("text/plain", taskId);
-    }
+    const taskId = event.currentTarget.dataset.taskId;
+    event.dataTransfer.setData("text/plain", taskId);
 }
 
 function onDragOver(event) {
