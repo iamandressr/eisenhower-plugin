@@ -62,12 +62,12 @@ class Plugin extends Base
     
     public function getPluginDescription()
     {
-        return t('Plugin to add a backlog column with full height to project board');
+        return t('Plugin para mostrar cuadrante Eisenhower en proyectos');
     }
     
     public function getPluginAuthor()
     {
-        return 'vistree + creecros';
+        return 'Andrés Silva';
     }
     
     public function getPluginVersion()
