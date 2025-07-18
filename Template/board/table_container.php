@@ -151,8 +151,6 @@ foreach ($tasks as $task) {
     <div class="noimportante"><?= t('No importante') ?></div>
 </div>
 
-<script>
-    const csrfToken = "<?= $this->app->config('csrf_token') ?>";
-    const updatePriorityUrl = "<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>";
-</script>
+<script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/config.js"></script>
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
+

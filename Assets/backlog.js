@@ -25,6 +25,10 @@ function onDrop(event, newPriority) {
     event.preventDefault();
     const taskId = event.dataTransfer.getData("text/plain");
 
+    // Usa las variables globales definidas en window.eisenhowerConfig
+    const csrfToken = window.eisenhowerConfig.csrfToken;
+    const updatePriorityUrl = window.eisenhowerConfig.updatePriorityUrl;
+
     fetch(updatePriorityUrl, {
         method: "POST",
         headers: {
