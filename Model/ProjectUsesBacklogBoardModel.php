@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\Backlog\Model;
+namespace Kanboard\Plugin\Eisenhower\Model;
 
 use Kanboard\Model\ProjectFileModel;
 use Kanboard\Model\ProjectMetadataModel;

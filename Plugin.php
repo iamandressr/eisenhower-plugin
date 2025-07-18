@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\Backlog;
+namespace Kanboard\Plugin\Eisenhower;
 
 use DateTime;
 use Kanboard\Core\Plugin\Base;

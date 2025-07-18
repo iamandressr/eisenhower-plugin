@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanboard\Plugin\Backlog\Controller;
+namespace Kanboard\Plugin\Eisenhower\Controller;
 
 use Kanboard\Controller\BaseController;
 use Kanboard\Model\ProjectModel;
