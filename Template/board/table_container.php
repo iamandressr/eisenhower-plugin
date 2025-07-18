@@ -126,8 +126,8 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
-                <?php if (!empty($task['assignee_username'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php if (!empty($task['assignee_name'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                 <?php endif ?>
             </div>
         <?php endforeach ?>
@@ -146,8 +146,8 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
-                <?php if (!empty($task['assignee_username'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php if (!empty($task['assignee_name'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                 <?php endif ?>
             </div>
         <?php endforeach ?>
@@ -168,8 +168,8 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
-                <?php if (!empty($task['assignee_username'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php if (!empty($task['assignee_name'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                 <?php endif ?>
             </div>
         <?php endforeach ?>
@@ -188,8 +188,8 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
-                <?php if (!empty($task['assignee_username'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php if (!empty($task['assignee_name'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                 <?php endif ?>
             </div>
         <?php endforeach ?>
