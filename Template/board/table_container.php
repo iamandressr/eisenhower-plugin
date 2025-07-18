@@ -1,19 +1,3 @@
-<?php
-$tasks = $this->task->taskFinderModel->getAll($project['id']);
-
-$tasks_by_priority = [
-    0 => [],
-    1 => [],
-    2 => [],
-    3 => []
-];
-
-foreach ($tasks as $task) {
-    $priority = (int) $task['priority'];
-    $tasks_by_priority[$priority][] = $task;
-}
-?>
-
 <hr>
 <h2 style="margin-top:30px"><?= t('Matriz Eisenhower') ?></h2>
 
@@ -25,16 +9,33 @@ foreach ($tasks as $task) {
     gap: 1rem;
     margin-top: 20px;
 }
+
+/* Contenedor de los títulos principales, 2 columnas */
+.eisenhower-titles {
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
 .eisenhower-quadrant {
     border: 1px solid #ccc;
     padding: 10px;
     min-height: 200px;
     background: #f9f9f9;
+    position: relative;
 }
-.eisenhower-quadrant h3 {
+
+.eisenhower-quadrant h4 {
     margin-top: 0;
-    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #444;
 }
+
 .task-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -47,10 +48,18 @@ foreach ($tasks as $task) {
 
 <div class="eisenhower-board">
 
+    <!-- Títulos principales arriba, que explican el cuadrante -->
+    <div class="eisenhower-titles">
+        <div><?= t('Urgente') ?></div>
+        <div><?= t('No urgente') ?></div>
+    </div>
+
+    <!-- Cuadrantes -->
+
     <div class="eisenhower-quadrant" id="do-now"
          ondragover="onDragOver(event)"
          ondrop="onDrop(event, 3)">
-        <h3><?= t('Urgente e Importante') ?> (Hacer ahora)</h3>
+        <h4><?= t('Hacer ahora') ?></h4>
         <?php foreach ($tasks_by_priority[3] as $task): ?>
             <div class="task-card"
                  draggable="true"
@@ -66,7 +75,7 @@ foreach ($tasks as $task) {
     <div class="eisenhower-quadrant" id="schedule"
          ondragover="onDragOver(event)"
          ondrop="onDrop(event, 2)">
-        <h3><?= t('No urgente pero Importante') ?> (Planificar)</h3>
+        <h4><?= t('Planificar') ?></h4>
         <?php foreach ($tasks_by_priority[2] as $task): ?>
             <div class="task-card"
                  draggable="true"
@@ -82,7 +91,7 @@ foreach ($tasks as $task) {
     <div class="eisenhower-quadrant" id="delegate"
          ondragover="onDragOver(event)"
          ondrop="onDrop(event, 1)">
-        <h3><?= t('Urgente pero No importante') ?> (Delegar)</h3>
+        <h4><?= t('Delegar') ?></h4>
         <?php foreach ($tasks_by_priority[1] as $task): ?>
             <div class="task-card"
                  draggable="true"
@@ -98,7 +107,7 @@ foreach ($tasks as $task) {
     <div class="eisenhower-quadrant" id="eliminate"
          ondragover="onDragOver(event)"
          ondrop="onDrop(event, 0)">
-        <h3><?= t('No urgente ni Importante') ?> (Eliminar)</h3>
+        <h4><?= t('Eliminar') ?></h4>
         <?php foreach ($tasks_by_priority[0] as $task): ?>
             <div class="task-card"
                  draggable="true"
@@ -111,35 +120,10 @@ foreach ($tasks as $task) {
         <?php endforeach ?>
     </div>
 
+    <!-- Títulos verticales a la izquierda -->
+    <div class="eisenhower-titles" style="grid-column: 1 / span 1; grid-row: 1 / span 2; flex-direction: column; justify-content: space-between; font-weight: bold; font-size: 1.3em; margin-top: 1rem;">
+        <div><?= t('Importante') ?></div>
+        <div><?= t('No importante') ?></div>
+    </div>
+
 </div>
-
-<script>
-function onDragStart(event) {
-    event.dataTransfer.setData("text/plain", event.target.dataset.taskId);
-}
-
-function onDragOver(event) {
-    event.preventDefault();
-}
-
-function onDrop(event, newPriority) {
-    event.preventDefault();
-    const taskId = event.dataTransfer.getData("text/plain");
-
-    fetch("<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": "<?= $this->app->config('csrf_token') ?>"
-        },
-        body: JSON.stringify({ task_id: taskId, priority: newPriority })
-    })
-    .then(res => {
-        if (res.ok) {
-            location.reload();
-        } else {
-            alert("Error al actualizar la prioridad");
-        }
-    });
-}
-</script>
