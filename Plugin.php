@@ -3,7 +3,6 @@
 namespace Kanboard\Plugin\Eisenhower;
 
 use DateTime;
-use Kanboard\Controller\BacklogBoardController;
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Model\ProjectModel;
 use Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel;
