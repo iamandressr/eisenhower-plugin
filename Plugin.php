@@ -49,7 +49,7 @@ class Plugin extends Base
 
     public function getClasses() {
         return array(
-            'Plugin\Backlog\Model' => array(
+            'Plugin\Eisenhower\Model' => array(
                 'ProjectUsesBacklogBoardModel',
             )
         );
@@ -57,7 +57,7 @@ class Plugin extends Base
     
     public function getPluginName()
     {
-        return 'Backlog';
+        return 'Eisenhower';
     }
     
     public function getPluginDescription()
@@ -77,7 +77,7 @@ class Plugin extends Base
     
     public function getPluginHomepage()
     {
-        return 'https://github.com/vistree/kanboard-backlog';
+        return '...';
     }
     
     public function getCompatibleVersion()

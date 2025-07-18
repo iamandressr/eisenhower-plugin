@@ -9,12 +9,6 @@ use Kanboard\Model\ColumnModel;
 use Kanboard\Model\TaskPositionModel;
 
 
-/**
- * @plugin Backlog
- *
- * @package Controller
- * @author  creecros
- */
 class BacklogBoardController extends BaseController {
 
 /**

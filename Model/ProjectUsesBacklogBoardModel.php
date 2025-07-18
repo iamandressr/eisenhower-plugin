@@ -7,12 +7,6 @@ use Kanboard\Model\ProjectMetadataModel;
 use Kanboard\Model\TaskModel;
 use Kanboard\Core\Base;
 
-/**
- * @plugin Backlog
- *
- * @package Model
- * @author  creecros
- */
 
 class ProjectUsesBacklogBoardModel extends Base {
     
