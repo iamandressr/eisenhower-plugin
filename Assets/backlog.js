@@ -1,40 +1,17 @@
-// Función para aplicar estilos a la columna "colapsada"
-document.addEventListener("DOMContentLoaded", function () {
-    const kanboardColumn = document.getElementById('kanboard-column');
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".task-card").forEach(card => {
+        card.addEventListener("dragstart", onDragStart);
+    });
 
-    if (!kanboardColumn) return;
-
-    const th = kanboardColumn.querySelector('th');
-    if (th && th.classList.contains("board-column-header-collapsed")) {
-        kanboardColumn.style.width = "28px";
-        kanboardColumn.style.minWidth = "28px";
-    }
-
-    // Override método listen
-    Kanboard.BoardColumnView.prototype.listen = function () {
-        const backlogColumn = th?.dataset.columnId;
-        const boardColumnCount = parseInt(kanboardColumn.dataset.nb_columns);
-        const backlogColumnWidth = 100 / boardColumnCount;
-
-        document.querySelectorAll(".board-toggle-column-view").forEach((toggleBtn) => {
-            toggleBtn.addEventListener("click", function (event) {
-                Kanboard.BoardColumn.toggle(this.dataset.columnId);
-
-                if (this.dataset.columnId === backlogColumn) {
-                    if (this.tagName === 'DIV') {
-                        kanboardColumn.style.width = `${backlogColumnWidth}%`;
-                        kanboardColumn.style.minWidth = "240px";
-                    } else {
-                        kanboardColumn.style.width = "28px";
-                        kanboardColumn.style.minWidth = "28px";
-                    }
-                }
-            });
+    document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
+        zone.addEventListener("dragover", onDragOver);
+        zone.addEventListener("drop", (event) => {
+            const newPriority = parseInt(zone.dataset.priority);
+            onDrop(event, newPriority);
         });
-    };
+    });
 });
 
-// Drag & Drop sin jQuery
 function onDragStart(event) {
     const taskId = event.currentTarget.dataset.taskId;
     event.dataTransfer.setData("text/plain", taskId);

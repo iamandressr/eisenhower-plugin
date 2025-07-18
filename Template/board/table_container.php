@@ -125,15 +125,13 @@ foreach ($tasks as $task) {
     foreach ($quadrants as $priority => $info): ?>
         <div class="eisenhower-quadrant"
              id="<?= $info['id'] ?>"
-             ondragover="onDragOver(event)"
-             ondrop="onDrop(event, <?= $priority ?>)"
-             style="grid-area: <?= $info['id'] ?>;">
+             style="grid-area: <?= $info['id'] ?>;"
+             data-priority="<?= $priority ?>">
             <h4><?= $info['title'] ?></h4>
 
             <?php foreach ($tasks_by_priority[$priority] as $task): ?>
                 <div class="task-card"
                      draggable="true"
-                     ondragstart="onDragStart(event)"
                      data-task-id="<?= $task['id'] ?>">
                     <?= $this->url->link(
                         '<strong>' . $this->text->e($task['title']) . '</strong>',
@@ -158,4 +156,3 @@ foreach ($tasks as $task) {
     const updatePriorityUrl = "<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>";
 </script>
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
-
