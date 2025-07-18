@@ -29,7 +29,7 @@ foreach ($tasks as $task) {
     border: 1px solid #ccc;
     padding: 10px;
     min-height: 200px;
-    background: #f9f9f9;
+    background: #f33333;
 }
 .eisenhower-quadrant h3 {
     margin-top: 0;
