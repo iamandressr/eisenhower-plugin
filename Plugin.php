@@ -17,7 +17,7 @@ class Plugin extends Base
     public function initialize()
     {
         
-        $this->template->setTemplateOverride('board/table_container','backlog:board/table_container');
+        $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
         $this->template->setTemplateOverride('column/index','backlog:column/index');
         $this->template->setTemplateOverride('swimlane/table','backlog:swimlane/table');
         $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
