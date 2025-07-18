@@ -126,7 +126,7 @@ function onDrop(event, newPriority) {
     event.preventDefault();
     const taskId = event.dataTransfer.getData("text/plain");
 
-    fetch("<?= $this->url->href('EisenhowerPriorityController', 'updatePriority', ['plugin' => 'eisenhower']) ?>", {
+    fetch("<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
