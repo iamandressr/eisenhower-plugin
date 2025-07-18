@@ -1,3 +1,22 @@
+<?php
+$tasks = $this->task->taskFinderModel->getAll($project['id']);
+
+$tasks_by_priority = [
+    0 => [],
+    1 => [],
+    2 => [],
+    3 => []
+];
+
+foreach ($tasks as $task) {
+    $priority = isset($task['priority']) ? (int) $task['priority'] : 0;
+    if (!array_key_exists($priority, $tasks_by_priority)) {
+        $priority = 0;
+    }
+    $tasks_by_priority[$priority][] = $task;
+}
+?>
+
 <hr>
 <h2 style="margin-top:30px"><?= t('Matriz Eisenhower') ?></h2>
 
@@ -23,6 +42,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 1.1em;
+    user-select: none;
 }
 
 .nourgente {
@@ -30,6 +50,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 1.1em;
+    user-select: none;
 }
 
 .importante {
@@ -39,6 +60,7 @@
     font-weight: bold;
     font-size: 1.1em;
     padding-top: 20px;
+    user-select: none;
 }
 
 .noimportante {
@@ -48,6 +70,7 @@
     font-weight: bold;
     font-size: 1.1em;
     padding-top: 20px;
+    user-select: none;
 }
 
 .eisenhower-quadrant {
@@ -64,6 +87,7 @@
     font-size: 1.1em;
     font-weight: normal;
     color: #444;
+    user-select: none;
 }
 
 .task-card {
