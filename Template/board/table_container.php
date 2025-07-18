@@ -158,4 +158,3 @@ window.eisenhowerConfig = {
 };
 </script>
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
-
