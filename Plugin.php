@@ -20,8 +20,8 @@ class Plugin extends Base
         $this->template->setTemplateOverride('board/table_container','backlog:board/table_container');
         $this->template->setTemplateOverride('column/index','backlog:column/index');
         $this->template->setTemplateOverride('swimlane/table','backlog:swimlane/table');
-        $this->hook->on('template:layout:js', array('template' => 'plugins/Backlog/Assets/backlog.js'));
-        $this->hook->on('template:layout:css', array('template' => 'plugins/Backlog/Assets/backlog.css'));
+        $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
+        $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
         $this->template->hook->attach('template:project:dropdown', 'backlog:board/menu');
         
         //CONFIG HOOK
