@@ -154,33 +154,7 @@ foreach ($tasks as $task) {
 </div>
 
 <script>
-function onDragStart(event) {
-    const taskId = event.currentTarget.dataset.taskId;
-    event.dataTransfer.setData("text/plain", taskId);
-}
-
-function onDragOver(event) {
-    event.preventDefault();
-}
-
-function onDrop(event, newPriority) {
-    event.preventDefault();
-    const taskId = event.dataTransfer.getData("text/plain");
-
-    fetch("<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": "<?= $this->app->config('csrf_token') ?>"
-        },
-        body: JSON.stringify({ task_id: taskId, priority: newPriority })
-    })
-    .then(res => {
-        if (res.ok) {
-            location.reload();
-        } else {
-            alert("Error al actualizar la prioridad");
-        }
-    });
-}
+    const csrfToken = "<?= $this->app->config('csrf_token') ?>";
+    const updatePriorityUrl = "<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>";
 </script>
+<script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>

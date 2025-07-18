@@ -24,3 +24,33 @@ Kanboard.BoardColumnView.prototype.listen = function (event) {
         }
     })
 };
+
+function onDragStart(event) {
+    const taskId = event.currentTarget.dataset.taskId;
+    event.dataTransfer.setData("text/plain", taskId);
+}
+
+function onDragOver(event) {
+    event.preventDefault();
+}
+
+function onDrop(event, newPriority) {
+    event.preventDefault();
+    const taskId = event.dataTransfer.getData("text/plain");
+
+    fetch(updatePriorityUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrfToken
+        },
+        body: JSON.stringify({ task_id: taskId, priority: newPriority })
+    })
+    .then(res => {
+        if (res.ok) {
+            location.reload();
+        } else {
+            alert("Error al actualizar la prioridad");
+        }
+    });
+}
