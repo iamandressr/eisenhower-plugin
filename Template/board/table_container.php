@@ -158,3 +158,4 @@ foreach ($tasks as $task) {
     const updatePriorityUrl = "<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>";
 </script>
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
+
