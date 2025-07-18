@@ -91,4 +91,29 @@ class BacklogBoardController extends BaseController {
           foreach ($tasksInColumn as $task) { $this->taskPositionModel->movePosition($projectId, $task['id'], $column_to, 1, $swimlane_to, true, false); }
     }
 
+     public function updatePriority()
+    {
+        $this->checkCSRF();
+        $data = json_decode($this->request->getBody(), true);
+
+        if (!isset($data['task_id']) || !isset($data['priority'])) {
+            $this->response->json(['error' => 'Invalid data'], 400);
+            return;
+        }
+
+        $task = $this->taskFinderModel->getById((int)$data['task_id']);
+
+        if (empty($task)) {
+            $this->response->json(['error' => 'Task not found'], 404);
+            return;
+        }
+
+        $this->taskModificationModel->update([
+            'id' => $task['id'],
+            'priority' => (int)$data['priority']
+        ]);
+
+        $this->response->json(['success' => true]);
+    }
+
 }
