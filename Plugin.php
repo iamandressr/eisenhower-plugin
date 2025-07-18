@@ -5,7 +5,7 @@ namespace Kanboard\Plugin\Eisenhower;
 use DateTime;
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Model\ProjectModel;
-use Kanboard\Plugin\Backlog\Model\ProjectUsesBacklogBoardModel;
+use Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel;
 use Kanboard\Model\ColumnModel;
 use Kanboard\Model\SwimlaneModel;
 use Kanboard\Model\TaskPositionModel;
