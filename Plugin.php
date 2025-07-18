@@ -18,14 +18,14 @@ class Plugin extends Base
     {
         
         $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
-        $this->template->setTemplateOverride('column/index','backlog:column/index');
-        $this->template->setTemplateOverride('swimlane/table','backlog:swimlane/table');
+        $this->template->setTemplateOverride('column/index','eisenhower:column/index');
+        $this->template->setTemplateOverride('swimlane/table','eisenhower:swimlane/table');
         $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
         $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
-        $this->template->hook->attach('template:project:dropdown', 'backlog:board/menu');
+        $this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
         
         //CONFIG HOOK
-        $this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
+        $this->template->hook->attach('template:config:board', 'eisenhower:config/board_name');    
         
         $projects = $this->projectModel->getAllByStatus(1); //get all projects that are active
         foreach ($projects as $project) {
