@@ -98,6 +98,10 @@ foreach ($tasks as $task) {
     border-radius: 4px;
     cursor: grab;
 }
+.task-card small {
+    color: #666;
+    font-style: italic;
+}
 </style>
 
 <div class="eisenhower-container">
@@ -122,6 +126,9 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
+                <?php if (!empty($task['assignee_username'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php endif ?>
             </div>
         <?php endforeach ?>
     </div>
@@ -139,6 +146,9 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
+                <?php if (!empty($task['assignee_username'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php endif ?>
             </div>
         <?php endforeach ?>
     </div>
@@ -158,6 +168,9 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
+                <?php if (!empty($task['assignee_username'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php endif ?>
             </div>
         <?php endforeach ?>
     </div>
@@ -175,6 +188,9 @@ foreach ($tasks as $task) {
                 <strong><?= $this->url->link($this->text->e($task['title']), 'TaskViewController', 'show', [
                     'task_id' => $task['id'], 'project_id' => $project['id']
                 ]) ?></strong>
+                <?php if (!empty($task['assignee_username'])): ?>
+                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_username']) ?></small>
+                <?php endif ?>
             </div>
         <?php endforeach ?>
     </div>
