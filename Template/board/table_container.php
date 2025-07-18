@@ -96,130 +96,73 @@ foreach ($tasks as $task) {
     padding: 5px 10px;
     margin-bottom: 5px;
     border-radius: 4px;
-    cursor: grab;
+}
+
+.task-card a {
+    display: inline-block;
+    width: 100%;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .task-card small {
     color: #666;
     font-style: italic;
+    display: block;
+    margin-top: 3px;
 }
 </style>
 
 <div class="eisenhower-container">
 
     <div class="corner"></div>
-
     <div class="urgente"><?= t('Urgente') ?></div>
     <div class="nourgente"><?= t('No urgente') ?></div>
-
     <div class="importante"><?= t('Importante') ?></div>
+
+    <?php
+    $quadrants = [
+        3 => ['id' => 'do-now', 'title' => t('Hacer ahora')],
+        2 => ['id' => 'schedule', 'title' => t('Planificar')],
+        1 => ['id' => 'delegate', 'title' => t('Delegar')],
+        0 => ['id' => 'eliminate', 'title' => t('Eliminar')],
+    ];
+
+    foreach ($quadrants as $priority => $info): ?>
+        <div class="eisenhower-quadrant"
+             id="<?= $info['id'] ?>"
+             ondragover="onDragOver(event)"
+             ondrop="onDrop(event, <?= $priority ?>)"
+             style="grid-area: <?= $info['id'] ?>;">
+            <h4><?= $info['title'] ?></h4>
+
+            <?php foreach ($tasks_by_priority[$priority] as $task): ?>
+                <div class="task-card"
+                     data-task-id="<?= $task['id'] ?>">
+                    <a href="<?= $this->url->href('TaskViewController', 'show', ['task_id' => $task['id'], 'project_id' => $project['id']]) ?>"
+                       draggable="true"
+                       ondragstart="onDragStart(event)"
+                       data-task-id="<?= $task['id'] ?>">
+                        <?= $this->text->e($task['title']) ?>
+                    </a>
+                    <?php if (!empty($task['assignee_name'])): ?>
+                        <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
+                    <?php endif ?>
+                </div>
+            <?php endforeach ?>
+        </div>
+    <?php endforeach ?>
+
     <div class="noimportante"><?= t('No importante') ?></div>
-
-    <!-- Cuadrante: Hacer ahora -->
-    <div class="eisenhower-quadrant" id="do-now"
-         ondragover="onDragOver(event)"
-         ondrop="onDrop(event, 3)"
-         style="grid-area: do-now;">
-        <h4><?= t('Hacer ahora') ?></h4>
-        <?php foreach ($tasks_by_priority[3] as $task): ?>
-            <div class="task-card"
-                 draggable="true"
-                 ondragstart="onDragStart(event)"
-                 data-task-id="<?= $task['id'] ?>">
-                <?= $this->url->link(
-                    '<strong>' . $this->text->e($task['title']) . '</strong>',
-                    'TaskViewController',
-                    'show',
-                    ['task_id' => $task['id'], 'project_id' => $project['id']],
-                    false
-                ) ?>
-                <?php if (!empty($task['assignee_name'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                <?php endif ?>
-            </div>
-        <?php endforeach ?>
-    </div>
-
-    <!-- Cuadrante: Planificar -->
-    <div class="eisenhower-quadrant" id="schedule"
-         ondragover="onDragOver(event)"
-         ondrop="onDrop(event, 2)"
-         style="grid-area: schedule;">
-        <h4><?= t('Planificar') ?></h4>
-        <?php foreach ($tasks_by_priority[2] as $task): ?>
-            <div class="task-card"
-                 draggable="true"
-                 ondragstart="onDragStart(event)"
-                 data-task-id="<?= $task['id'] ?>">
-                <?= $this->url->link(
-                    '<strong>' . $this->text->e($task['title']) . '</strong>',
-                    'TaskViewController',
-                    'show',
-                    ['task_id' => $task['id'], 'project_id' => $project['id']],
-                    false
-                ) ?>
-                <?php if (!empty($task['assignee_name'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                <?php endif ?>
-            </div>
-        <?php endforeach ?>
-    </div>
-
-    <!-- Cuadrante: Delegar -->
-    <div class="eisenhower-quadrant" id="delegate"
-         ondragover="onDragOver(event)"
-         ondrop="onDrop(event, 1)"
-         style="grid-area: delegate;">
-        <h4><?= t('Delegar') ?></h4>
-        <?php foreach ($tasks_by_priority[1] as $task): ?>
-            <div class="task-card"
-                 draggable="true"
-                 ondragstart="onDragStart(event)"
-                 data-task-id="<?= $task['id'] ?>">
-                <?= $this->url->link(
-                    '<strong>' . $this->text->e($task['title']) . '</strong>',
-                    'TaskViewController',
-                    'show',
-                    ['task_id' => $task['id'], 'project_id' => $project['id']],
-                    false
-                ) ?>
-                <?php if (!empty($task['assignee_name'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                <?php endif ?>
-            </div>
-        <?php endforeach ?>
-    </div>
-
-    <!-- Cuadrante: Eliminar -->
-    <div class="eisenhower-quadrant" id="eliminate"
-         ondragover="onDragOver(event)"
-         ondrop="onDrop(event, 0)"
-         style="grid-area: eliminate;">
-        <h4><?= t('Eliminar') ?></h4>
-        <?php foreach ($tasks_by_priority[0] as $task): ?>
-            <div class="task-card"
-                 draggable="true"
-                 ondragstart="onDragStart(event)"
-                 data-task-id="<?= $task['id'] ?>">
-                <?= $this->url->link(
-                    '<strong>' . $this->text->e($task['title']) . '</strong>',
-                    'TaskViewController',
-                    'show',
-                    ['task_id' => $task['id'], 'project_id' => $project['id']],
-                    false
-                ) ?>
-                <?php if (!empty($task['assignee_name'])): ?>
-                    <br><small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                <?php endif ?>
-            </div>
-        <?php endforeach ?>
-    </div>
-
 </div>
 
 <script>
 function onDragStart(event) {
-    event.dataTransfer.setData("text/plain", event.target.dataset.taskId);
+    const taskId = event.target.dataset.taskId;
+    if (taskId) {
+        event.dataTransfer.setData("text/plain", taskId);
+    }
 }
 
 function onDragOver(event) {
