@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
     };
 
-    // Resto del código para arrastrar y soltar...
     document.querySelectorAll(".task-card").forEach(card => {
         card.addEventListener("dragstart", onDragStart);
     });
@@ -18,9 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-
-// Funciones onDragStart, onDragOver y onDrop igual que antes...
-
 
 function onDragStart(event) {
     const taskId = event.currentTarget.dataset.taskId;
@@ -35,7 +31,6 @@ function onDrop(event, newPriority) {
     event.preventDefault();
     const taskId = event.dataTransfer.getData("text/plain");
 
-    // Usa las variables globales definidas en window.eisenhowerConfig
     const csrfToken = window.eisenhowerConfig.csrfToken;
     const updatePriorityUrl = window.eisenhowerConfig.updatePriorityUrl;
 

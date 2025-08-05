@@ -18,7 +18,6 @@ foreach ($tasks as $task) {
 ?>
 
 <hr>
-<h2 style="margin-top:30px"><?= t('Matriz Eisenhower') ?></h2>
 
 <style>
 .eisenhower-container {
