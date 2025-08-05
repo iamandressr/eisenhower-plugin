@@ -29,7 +29,7 @@ foreach ($tasks as $task) {
         "importante do-now schedule"
         "noimportante delegate eliminate";
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .corner {
