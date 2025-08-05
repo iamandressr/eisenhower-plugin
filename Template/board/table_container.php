@@ -22,7 +22,7 @@ foreach ($tasks as $task) {
 <style>
 .eisenhower-container {
     display: grid;
-    grid-template-columns: 55px 1fr 1fr;
+    grid-template-columns: 45px 1fr 1fr;
     grid-template-rows: 30px 1fr 1fr;
     grid-template-areas:
         "corner urgente nourgente"
