@@ -29,8 +29,8 @@ function onDragOver(event) {
 
 function onDrop(event, newPriority) {
     event.preventDefault();
-    const taskId = event.dataTransfer.getData("text/plain");
 
+    const taskId = event.dataTransfer.getData("text/plain");
     const csrfToken = window.eisenhowerConfig.csrfToken;
     const updatePriorityUrl = window.eisenhowerConfig.updatePriorityUrl;
 
