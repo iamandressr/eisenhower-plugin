@@ -93,7 +93,7 @@ class BacklogBoardController extends BaseController {
 
      public function updatePriority()
     {
-        $this->checkCSRFProtection();
+        $this->checkCSRF();
         $data = json_decode($this->request->getBody(), true);
 
         if (!isset($data['task_id']) || !isset($data['priority'])) {
