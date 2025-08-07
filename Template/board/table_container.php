@@ -122,30 +122,37 @@ foreach ($tasks as $task) {
     ];
 
     foreach ($quadrants as $priority => $info): ?>
-        <div class="eisenhower-quadrant"
-             id="<?= $info['id'] ?>"
-             style="grid-area: <?= $info['id'] ?>;"
-             data-priority="<?= $priority ?>">
-            <h4><?= $info['title'] ?></h4>
+    <div class="eisenhower-quadrant"
+         id="<?= $info['id'] ?>"
+         style="grid-area: <?= $info['id'] ?>;"
+         data-priority="<?= $priority ?>">
 
-            <?php foreach ($tasks_by_priority[$priority] as $task): ?>
-                <div class="task-card"
-                     draggable="true"
-                     data-task-id="<?= $task['id'] ?>">
-                    <?= $this->url->link(
-                        '<strong>' . $this->text->e($task['title']) . '</strong>',
-                        'TaskViewController',
-                        'show',
-                        ['task_id' => $task['id'], 'project_id' => $project['id']],
-                        false
-                    ) ?>
-                    <?php if (!empty($task['assignee_name'])): ?>
-                        <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                    <?php endif ?>
-                </div>
-            <?php endforeach ?>
-        </div>
-    <?php endforeach ?>
+        <h4><?= $info['title'] ?></h4>
+
+        <!-- FORMULARIO NUEVA TAREA -->
+        <form class="new-task-form" data-priority="<?= $priority ?>" data-project-id="<?= $project['id'] ?>" onsubmit="return createTask(event, this);">
+            <input type="text" name="title" placeholder="<?= t('Nueva tarea...') ?>" required autocomplete="off" />
+            <button type="submit"><?= t('Agregar') ?></button>
+        </form>
+
+        <?php foreach ($tasks_by_priority[$priority] as $task): ?>
+            <div class="task-card"
+                 draggable="true"
+                 data-task-id="<?= $task['id'] ?>">
+                <?= $this->url->link(
+                    '<strong>' . $this->text->e($task['title']) . '</strong>',
+                    'TaskViewController',
+                    'show',
+                    ['task_id' => $task['id'], 'project_id' => $project['id']],
+                    false
+                ) ?>
+                <?php if (!empty($task['assignee_name'])): ?>
+                    <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
+                <?php endif ?>
+            </div>
+        <?php endforeach ?>
+    </div>
+<?php endforeach ?>
 
     <div class="noimportante"><?= t('No importante') ?></div>
 </div>

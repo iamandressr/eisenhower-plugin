@@ -116,4 +116,40 @@ class BacklogBoardController extends BaseController {
         $this->response->json(['success' => true]);
     }
 
+    public function createTask()
+{
+    $this->checkCSRFParam();
+
+    $data = json_decode($this->request->getBody(), true);
+
+    $project_id = isset($data['project_id']) ? (int) $data['project_id'] : 0;
+    $title = isset($data['title']) ? trim($data['title']) : '';
+    $priority = isset($data['priority']) ? (int) $data['priority'] : 0;
+
+    if (empty($title) || $project_id === 0) {
+        return $this->response->json(['error' => 'Parámetros inválidos'], 400);
+    }
+
+    $values = [
+        'project_id' => $project_id,
+        'title' => $title,
+        'priority' => $priority,
+        // Opcional: asignado, fechas, etc.
+    ];
+
+    $task_id = $this->taskCreation->create($values);
+
+    if ($task_id === false) {
+        return $this->response->json(['error' => 'No se pudo crear la tarea'], 500);
+    }
+
+    $task = $this->taskFinderModel->getById($task_id);
+
+    return $this->response->json([
+        'id' => $task['id'],
+        'title' => $task['title'],
+        'assignee_name' => isset($task['assignee_name']) ? $task['assignee_name'] : ''
+    ]);
+}
+
 }
