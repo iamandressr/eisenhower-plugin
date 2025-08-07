@@ -142,6 +142,7 @@ foreach ($tasks as $task) {
         <?php foreach ($tasks_by_priority[$priority] as $task): ?>
             <div class="task-card" draggable="true" data-task-id="<?= $task['id'] ?>">
     <div class="task-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <!-- Título de la tarea (a la izquierda) -->
     <?= $this->url->link(
         '<strong>' . $this->text->e($task['title']) . '</strong>',
         'TaskViewController',
@@ -150,7 +151,8 @@ foreach ($tasks as $task) {
         false
     ) ?>
 
-    <div style="display: flex; gap: 10px; align-items: center;">
+    <!-- Contenedor para los botones (alineado a la derecha) -->
+    <div style="display: flex; gap: 10px;">
         <!-- Botón Editar -->
         <a href="<?= $this->url->href('TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>"
            class="js-modal-large"
@@ -158,8 +160,7 @@ foreach ($tasks as $task) {
             <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
         </a>
 
-        <!-- Separador no seleccionable -->
-        <span style="user-select: none; pointer-events: none; color: #999;">|</span>
+        <p> | </p>
 
         <!-- Botón Eliminar -->
         <a href="<?= $this->url->href('TaskSuppressionController', 'confirm', ['task_id' => $task['id'], 'redirect' => 'board']) ?>"
@@ -168,8 +169,6 @@ foreach ($tasks as $task) {
             <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <?= t('Eliminar') ?>
         </a>
     </div>
-</div>
-
 </div>
 
 
