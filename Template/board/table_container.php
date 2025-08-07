@@ -149,6 +149,8 @@ foreach ($tasks as $task) {
            title="<?= t('Editar tarea') ?>">
             <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
         </a>
+
+        <select name="priority" id="form-priority" class="" tabindex="9"><option value="0">0</option><option value="1">1</option><option value="2" selected="selected">2</option><option value="3">3</option></select>
     </div>
 
     <?php if (!empty($task['assignee_name'])): ?>
