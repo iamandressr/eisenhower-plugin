@@ -92,29 +92,36 @@ class BacklogBoardController extends BaseController {
     }
 
      public function updatePriority()
-    {
+{
+    try {
         $this->checkCSRFToken();
+
         $data = json_decode($this->request->getBody(), true);
 
         if (!isset($data['task_id']) || !isset($data['priority'])) {
-            $this->response->json(['error' => 'Invalid data'], 400);
-            return;
+            return $this->response->json(['error' => 'Invalid data'], 400);
         }
 
         $task = $this->taskFinderModel->getById((int)$data['task_id']);
 
         if (empty($task)) {
-            $this->response->json(['error' => 'Task not found'], 404);
-            return;
+            return $this->response->json(['error' => 'Task not found'], 404);
         }
 
-        $this->taskModificationModel->update([
+        if (! $this->taskModificationModel->update([
             'id' => $task['id'],
             'priority' => (int)$data['priority']
-        ]);
+        ])) {
+            return $this->response->json(['error' => 'Update failed'], 500);
+        }
 
-        $this->response->json(['success' => true]);
+        return $this->response->json(['success' => true]);
+
+    } catch (\Exception $e) {
+        return $this->response->json(['error' => $e->getMessage()], 500);
     }
+}
+
 
     public function createTask()
 {
