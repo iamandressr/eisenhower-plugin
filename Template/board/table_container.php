@@ -107,8 +107,10 @@ foreach ($tasks as $task) {
 </style>
 
 <!-- FORMULARIO NUEVA TAREA -->
-    <a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
+<a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
 
+<!-- TAREA DESDE MANTIS -->
+<a href="/?controller=ExternalTaskCreationController&amp;action=step1&amp;project_id=1&amp;swimlane_id=2&amp;column_id=2&amp;provider_name=Mantis" class="js-modal-large" title="">Add a new Mantis issue</a>
 
 <div class="eisenhower-container">
 
