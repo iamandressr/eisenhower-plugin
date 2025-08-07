@@ -134,28 +134,28 @@ foreach ($tasks as $task) {
         <h4><?= $info['title'] ?></h4>
 
         <?php foreach ($tasks_by_priority[$priority] as $task): ?>
-            <div class="task-card"
-                 draggable="true"
-                 data-task-id="<?= $task['id'] ?>">
-                <?= $this->url->link(
-                    '<strong>' . $this->text->e($task['title']) . '</strong>',
-                    'TaskViewController',
-                    'show',
-                    ['task_id' => $task['id'], 'project_id' => $project['id']],
-                    false
-                ) ?>
+            <div class="task-card" draggable="true" data-task-id="<?= $task['id'] ?>">
+    <div class="task-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <?= $this->url->link(
+            '<strong>' . $this->text->e($task['title']) . '</strong>',
+            'TaskViewController',
+            'show',
+            ['task_id' => $task['id'], 'project_id' => $project['id']],
+            false
+        ) ?>
 
-                <!-- Botón Editar -->
-                <a href="<?= $this->url->href('TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>"
-                   class="js-modal-large"
-                   title="<?= t('Editar tarea') ?>">
-                    <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
-                </a>
+        <a href="<?= $this->url->href('TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>"
+           class="js-modal-large"
+           title="<?= t('Editar tarea') ?>">
+            <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
+        </a>
+    </div>
 
-                <?php if (!empty($task['assignee_name'])): ?>
-                    <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
-                <?php endif ?>
-            </div>
+    <?php if (!empty($task['assignee_name'])): ?>
+        <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
+    <?php endif ?>
+</div>
+
         <?php endforeach ?>
     </div>
 <?php endforeach ?>
