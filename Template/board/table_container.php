@@ -142,20 +142,33 @@ foreach ($tasks as $task) {
         <?php foreach ($tasks_by_priority[$priority] as $task): ?>
             <div class="task-card" draggable="true" data-task-id="<?= $task['id'] ?>">
     <div class="task-card-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <?= $this->url->link(
-            '<strong>' . $this->text->e($task['title']) . '</strong>',
-            'TaskViewController',
-            'show',
-            ['task_id' => $task['id'], 'project_id' => $project['id']],
-            false
-        ) ?>
+    <!-- Título de la tarea (a la izquierda) -->
+    <?= $this->url->link(
+        '<strong>' . $this->text->e($task['title']) . '</strong>',
+        'TaskViewController',
+        'show',
+        ['task_id' => $task['id'], 'project_id' => $project['id']],
+        false
+    ) ?>
 
+    <!-- Contenedor para los botones (alineado a la derecha) -->
+    <div style="display: flex; gap: 10px;">
+        <!-- Botón Editar -->
         <a href="<?= $this->url->href('TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>"
            class="js-modal-large"
            title="<?= t('Editar tarea') ?>">
             <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
         </a>
+
+        <!-- Botón Suprimir -->
+        <a href="<?= $this->url->href('TaskSuppressionController', 'confirm', ['task_id' => $task['id'], 'redirect' => 'board']) ?>"
+           class="js-modal-confirm"
+           title="<?= t('Suprimir tarea') ?>">
+            <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <?= t('Suprimir') ?>
+        </a>
     </div>
+</div>
+
 
     <?php if (!empty($task['assignee_name'])): ?>
         <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
