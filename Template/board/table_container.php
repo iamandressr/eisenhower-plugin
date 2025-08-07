@@ -115,10 +115,10 @@ foreach ($tasks as $task) {
 
     <?php
     $quadrants = [
-        3 => ['id' => 'do-now', 'title' => t('Hacer ahora')],
-        2 => ['id' => 'schedule', 'title' => t('Planificar')],
-        1 => ['id' => 'delegate', 'title' => t('Delegar')],
-        0 => ['id' => 'eliminate', 'title' => t('Eliminar')],
+        3 => ['id' => 'do-now', 'title' => t('Hacer ahora (3)')],
+        2 => ['id' => 'schedule', 'title' => t('Planificar (2)')],
+        1 => ['id' => 'delegate', 'title' => t('Delegar (1)')],
+        0 => ['id' => 'eliminate', 'title' => t('Eliminar (0)')],
     ];
 
     foreach ($quadrants as $priority => $info): ?>
