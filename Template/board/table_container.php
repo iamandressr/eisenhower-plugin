@@ -164,7 +164,7 @@ foreach ($tasks as $task) {
         <a href="<?= $this->url->href('TaskSuppressionController', 'confirm', ['task_id' => $task['id'], 'redirect' => 'board']) ?>"
            class="js-modal-confirm"
            title="<?= t('Suprimir tarea') ?>">
-            <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <?= t('Suprimir') ?>
+            <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> <?= t('Eliminar') ?>
         </a>
     </div>
 </div>
