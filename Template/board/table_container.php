@@ -144,6 +144,14 @@ foreach ($tasks as $task) {
                     ['task_id' => $task['id'], 'project_id' => $project['id']],
                     false
                 ) ?>
+
+                <!-- Botón Editar -->
+                <a href="<?= $this->url->href('TaskModificationController', 'edit', ['task_id' => $task['id']]) ?>"
+                   class="js-modal-large"
+                   title="<?= t('Editar tarea') ?>">
+                    <i class="fa fa-edit fa-fw" aria-hidden="true"></i> <?= t('Editar') ?>
+                </a>
+
                 <?php if (!empty($task['assignee_name'])): ?>
                     <small><?= t('Asignado a') ?>: <?= $this->text->e($task['assignee_name']) ?></small>
                 <?php endif ?>
