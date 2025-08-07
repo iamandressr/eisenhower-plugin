@@ -121,11 +121,10 @@ foreach ($tasks as $task) {
         0 => ['id' => 'eliminate', 'title' => t('Eliminar (0)')],
     ];
 
-
-    <!-- FORMULARIO NUEVA TAREA -->
-        <a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
-
     foreach ($quadrants as $priority => $info): ?>
+     <!-- FORMULARIO NUEVA TAREA -->
+    <a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
+
     <div class="eisenhower-quadrant"
          id="<?= $info['id'] ?>"
          style="grid-area: <?= $info['id'] ?>;"
