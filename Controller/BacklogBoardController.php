@@ -152,4 +152,40 @@ class BacklogBoardController extends BaseController {
     ]);
 }
 
+public function moveTask()
+{
+    $this->checkCSRFToken();  // valida el token CSRF para seguridad
+
+    $data = json_decode($this->request->getBody(), true);
+
+    if (empty($data['task_id']) || empty($data['column_id']) || !isset($data['position']) || empty($data['swimlane_id'])) {
+        $this->response->json(['error' => 'Invalid data'], 400);
+        return;
+    }
+
+    $task = $this->taskFinderModel->getById($data['task_id']);
+
+    if (empty($task)) {
+        $this->response->json(['error' => 'Task not found'], 404);
+        return;
+    }
+
+    // Aquí puedes validar permisos si quieres, por ejemplo:
+    if (! $this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $data['column_id'])) {
+        $this->response->json(['error' => 'Access denied'], 403);
+        return;
+    }
+
+    $this->taskPositionModel->movePosition(
+        $task['project_id'],
+        $task['id'],
+        $data['column_id'],
+        $data['position'],
+        $data['swimlane_id']
+    );
+
+    $this->response->json(['success' => true]);
+}
+
+
 }
