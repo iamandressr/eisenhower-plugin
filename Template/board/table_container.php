@@ -130,10 +130,7 @@ foreach ($tasks as $task) {
         <h4><?= $info['title'] ?></h4>
 
         <!-- FORMULARIO NUEVA TAREA -->
-        <form class="new-task-form" data-priority="<?= $priority ?>" data-project-id="<?= $project['id'] ?>" onsubmit="return createTask(event, this);">
-            <input type="text" name="title" placeholder="<?= t('Nueva tarea...') ?>" required autocomplete="off" />
-            <button type="submit"><?= t('Agregar') ?></button>
-        </form>
+        <a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
 
         <?php foreach ($tasks_by_priority[$priority] as $task): ?>
             <div class="task-card"
