@@ -177,6 +177,4 @@ public function moveTask()
 
     $this->response->json(['success' => true]);
 }
-
-
 }
