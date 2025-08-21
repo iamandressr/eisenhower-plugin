@@ -23,6 +23,8 @@ class Plugin extends Base
         $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
         $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
         $this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
+        $this->route->addRoute('/eisenhower/updatePriority', 'BacklogBoardController', 'updatePriority', 'Eisenhower');
+
         
         //CONFIG HOOK
         $this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
