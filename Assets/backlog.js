@@ -93,7 +93,7 @@ function createTask(event, form) {
 
             // Crear link a la tarea
             const link = document.createElement('a');
-            link.href = `/task/${data.id}`; // Ajusta URL si es necesario
+            link.href = `/task/${data.id}`; 
             link.innerHTML = `<strong>${data.title}</strong>`;
             taskCard.appendChild(link);
 

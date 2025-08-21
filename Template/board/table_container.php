@@ -42,6 +42,7 @@ foreach ($tasks as $task) {
     font-weight: bold;
     font-size: 1.1em;
     user-select: none;
+    background: red;
 }
 
 .nourgente {
