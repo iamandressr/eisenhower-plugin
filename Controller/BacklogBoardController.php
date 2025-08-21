@@ -92,19 +92,24 @@ class BacklogBoardController extends BaseController {
     }
 
      public function updatePriority()
-    {
-        // Lógica que tú desees agregar
-        $task_id = $this->request->getIntegerParam('task_id');
-        $priority = $this->request->getIntegerParam('priority');
+{
+    $task_id = $this->request->getIntegerParam('task_id');
+    $priority = $this->request->getIntegerParam('priority');
 
-        // Verifica que existan esos campos antes
-        $this->taskModificationModel->update([
-            'id' => $task_id,
-            'priority' => $priority,
-        ]);
-
-        return $this->response->json(['status' => 'ok']);
+    // Validar que la tarea existe
+    $task = $this->taskFinderModel->getById($task_id);
+    if (empty($task)) {
+        return $this->response->json(['status' => 'error', 'message' => 'Tarea no encontrada'], 404);
     }
+
+    $this->taskModificationModel->update([
+        'id' => $task_id,
+        'priority' => $priority,
+    ]);
+
+    return $this->response->json(['status' => 'ok']);
+}
+
 
 
     public function createTask()
