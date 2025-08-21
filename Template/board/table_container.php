@@ -42,7 +42,6 @@ foreach ($tasks as $task) {
     font-weight: bold;
     font-size: 1.1em;
     user-select: none;
-    background: red;
 }
 
 .nourgente {
@@ -125,6 +124,13 @@ foreach ($tasks as $task) {
     <div class="importante"><?= t('Importante') ?></div>
 
     <?php
+    $colors = [
+        3 => '#ff9999', // Hacer ahora
+        2 => '#ffcc99', // Planificar
+        1 => '#ffff99', // Delegar
+        0 => '#d9d9d9'  // Eliminar
+    ];
+
     $quadrants = [
         3 => ['id' => 'do-now', 'title' => t('Hacer ahora (3)')],
         2 => ['id' => 'schedule', 'title' => t('Planificar (2)')],
@@ -135,7 +141,8 @@ foreach ($tasks as $task) {
     foreach ($quadrants as $priority => $info): ?>
     <div class="eisenhower-quadrant"
          id="<?= $info['id'] ?>"
-         style="grid-area: <?= $info['id'] ?>;"
+         style="grid-area: <?= $info['id'] ?>;
+         background-color: <?= $colors[$priority] ?>;"
          data-priority="<?= $priority ?>">
 
         <h4><?= $info['title'] ?></h4>
