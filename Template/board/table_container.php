@@ -125,10 +125,10 @@ foreach ($tasks as $task) {
 
     <?php
     $colors = [
-        3 => '#ff9999', // Hacer ahora
-        2 => '#ffcc99', // Planificar
-        1 => '#ffff99', // Delegar
-        0 => '#d9d9d9'  // Eliminar
+        3 => '#ffb3b3', // Hacer ahora
+        2 => '#ffd9b3', // Planificar
+        1 => '#ffffb3', // Delegar
+        0 => '#b3ffb3'  // Eliminar
     ];
 
     $quadrants = [
