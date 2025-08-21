@@ -49,8 +49,10 @@ function onDrop(event, newPriority) {
             alert("Error al actualizar la prioridad");
         }
     });
+}
 
-    function createTask(event, form) {
+// Función separada, fuera del onDrop
+function createTask(event, form) {
     event.preventDefault();
 
     const projectId = form.getAttribute('data-project-id');
@@ -112,6 +114,4 @@ function onDrop(event, newPriority) {
     .catch(() => alert('Error al crear tarea'));
 
     return false;
-}
-
 }
