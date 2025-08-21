@@ -46,6 +46,14 @@ class Plugin extends Base
 
     public function getClasses()
 {
+
+    public function onStartup()
+    {
+        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
+    }
+
+    public function getClasses()
+{
     return [
         'Plugin\Eisenhower\Model' => [
             'ProjectUsesBacklogBoardModel',
@@ -56,19 +64,6 @@ class Plugin extends Base
     ];
 }
 
-
-    public function onStartup()
-    {
-        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
-    }
-
-    public function getClasses() {
-        return array(
-            'Plugin\Eisenhower\Model' => array(
-                'ProjectUsesBacklogBoardModel',
-            )
-        );
-    }
     
     public function getPluginName()
     {
