@@ -44,9 +44,6 @@ class Plugin extends Base
         }
     }
 
-    public function getClasses()
-{
-
     public function onStartup()
     {
         Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
