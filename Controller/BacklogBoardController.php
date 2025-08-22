@@ -93,10 +93,16 @@ class BacklogBoardController extends BaseController {
 
      public function updatePriority()
 {
-    $task_id = $this->request->getIntegerParam('task_id');
-    $priority = $this->request->getIntegerParam('priority');
+    $data = json_decode($this->request->getBody(), true);
+
+    $task_id = isset($data['task_id']) ? (int) $data['task_id'] : 0;
+    $priority = isset($data['priority']) ? (int) $data['priority'] : 0;
 
     error_log("UpdatePriority called: task_id=$task_id, priority=$priority");
+
+    if ($task_id === 0) {
+        return $this->response->json(['status' => 'error', 'message' => 'ID de tarea inválido'], 400);
+    }
 
     $task = $this->taskFinderModel->getById($task_id);
     if (empty($task)) {
@@ -111,12 +117,13 @@ class BacklogBoardController extends BaseController {
 
     if ($updated === false) {
         error_log("Failed to update priority for task $task_id");
+        return $this->response->json(['status' => 'error', 'message' => 'Error al actualizar prioridad'], 500);
     } else {
         error_log("Priority updated successfully for task $task_id");
+        return $this->response->json(['status' => 'ok']);
     }
-
-    return $this->response->json(['status' => 'ok']);
 }
+
 
 
 
