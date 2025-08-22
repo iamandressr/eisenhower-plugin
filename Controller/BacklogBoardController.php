@@ -159,29 +159,27 @@ class BacklogBoardController extends BaseController {
 
 public function moveTask()
 {
-    $this->checkCSRFToken();  // valida el token CSRF para seguridad
+    $this->checkCSRFParam();
 
     $data = json_decode($this->request->getBody(), true);
 
+    error_log('moveTask called with data: ' . json_encode($data));
+
     if (empty($data['task_id']) || empty($data['column_id']) || !isset($data['position']) || empty($data['swimlane_id'])) {
-        $this->response->json(['error' => 'Invalid data'], 400);
-        return;
+        return $this->response->json(['error' => 'Invalid data'], 400);
     }
 
     $task = $this->taskFinderModel->getById($data['task_id']);
 
     if (empty($task)) {
-        $this->response->json(['error' => 'Task not found'], 404);
-        return;
+        return $this->response->json(['error' => 'Task not found'], 404);
     }
 
-    // Aquí puedes validar permisos si quieres, por ejemplo:
     if (! $this->helper->projectRole->canMoveTask($task['project_id'], $task['column_id'], $data['column_id'])) {
-        $this->response->json(['error' => 'Access denied'], 403);
-        return;
+        return $this->response->json(['error' => 'Access denied'], 403);
     }
 
-    $this->taskPositionModel->movePosition(
+    $moved = $this->taskPositionModel->movePosition(
         $task['project_id'],
         $task['id'],
         $data['column_id'],
@@ -189,6 +187,11 @@ public function moveTask()
         $data['swimlane_id']
     );
 
-    $this->response->json(['success' => true]);
+    if ($moved === false) {
+        return $this->response->json(['error' => 'Failed to move task'], 500);
+    }
+
+    return $this->response->json(['success' => true]);
 }
+
 }
