@@ -96,28 +96,28 @@ class BacklogBoardController extends BaseController {
     $task_id = $this->request->getIntegerParam('task_id');
     $priority = $this->request->getIntegerParam('priority');
 
-    error_log("Updating task $task_id priority to $priority");
+    error_log("UpdatePriority called: task_id=$task_id, priority=$priority");
 
     $task = $this->taskFinderModel->getById($task_id);
     if (empty($task)) {
-        error_log("Task $task_id not found");
+        error_log("Task not found: $task_id");
         return $this->response->json(['status' => 'error', 'message' => 'Tarea no encontrada'], 404);
     }
 
-    $result = $this->taskModificationModel->update([
+    $updated = $this->taskModificationModel->update([
         'id' => $task_id,
         'priority' => $priority,
     ]);
 
-    if (!$result) {
-        error_log("Failed to update task $task_id priority");
-        return $this->response->json(['status' => 'error', 'message' => 'Error al actualizar la tarea'], 500);
+    if ($updated === false) {
+        error_log("Failed to update priority for task $task_id");
+    } else {
+        error_log("Priority updated successfully for task $task_id");
     }
-
-    error_log("Task $task_id priority updated successfully");
 
     return $this->response->json(['status' => 'ok']);
 }
+
 
 
 
