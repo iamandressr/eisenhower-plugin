@@ -34,6 +34,11 @@ function onDrop(event, newPriority) {
     const csrfToken = window.eisenhowerConfig.csrfToken;
     const updatePriorityUrl = window.eisenhowerConfig.updatePriorityUrl;
 
+    console.log('onDrop triggered');
+    console.log('Task ID:', taskId);
+    console.log('New priority:', newPriority);
+    console.log('Update URL:', updatePriorityUrl);
+
     fetch(updatePriorityUrl, {
         method: "POST",
         headers: {
@@ -43,13 +48,19 @@ function onDrop(event, newPriority) {
         body: JSON.stringify({ task_id: taskId, priority: newPriority })
     })
     .then(res => {
+        console.log('Fetch response:', res);
         if (res.ok) {
             location.reload();
         } else {
             alert("Error al actualizar la prioridad");
         }
+    })
+    .catch(err => {
+        console.error('Fetch error:', err);
+        alert("Error al actualizar la prioridad");
     });
 }
+
 
 // Función separada, fuera del onDrop
 function createTask(event, form) {
