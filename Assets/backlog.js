@@ -1,27 +1,28 @@
+function handleDrop(event) {
+    const zone = event.currentTarget;
+    const newPriority = parseInt(zone.dataset.priority);
+    onDrop(event, newPriority);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    if (!window.eisenhowerListenersAdded) {
-        window.eisenhowerListenersAdded = true;
+    const configEl = document.getElementById('eisenhower-config');
+    window.eisenhowerConfig = {
+        csrfToken: configEl.getAttribute('data-csrf-token'),
+        updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
+    };
 
-        const configEl = document.getElementById('eisenhower-config');
-        window.eisenhowerConfig = {
-            csrfToken: configEl.getAttribute('data-csrf-token'),
-            updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
-        };
+    document.querySelectorAll(".task-card").forEach(card => {
+        card.addEventListener("dragstart", onDragStart);
+    });
 
-        document.querySelectorAll(".task-card").forEach(card => {
-            card.addEventListener("dragstart", onDragStart);
-        });
-
-        document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
-            zone.addEventListener("dragover", onDragOver);
-
-            zone.addEventListener("drop", (event) => {
-                const newPriority = parseInt(zone.dataset.priority);
-                onDrop(event, newPriority);
-            });
-        });
-    }
+    document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
+        zone.addEventListener("dragover", onDragOver);
+        // Remueve el listener anterior (si existía)
+        zone.removeEventListener("drop", handleDrop);
+        zone.addEventListener("drop", handleDrop);
+    });
 });
+
 
 
 
