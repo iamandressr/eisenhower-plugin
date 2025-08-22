@@ -1,22 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const configEl = document.getElementById('eisenhower-config');
-    window.eisenhowerConfig = {
-        csrfToken: configEl.getAttribute('data-csrf-token'),
-        updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
-    };
+    if (!window.eisenhowerListenersAdded) {
+        window.eisenhowerListenersAdded = true;
 
-    document.querySelectorAll(".task-card").forEach(card => {
-        card.addEventListener("dragstart", onDragStart);
-    });
+        const configEl = document.getElementById('eisenhower-config');
+        window.eisenhowerConfig = {
+            csrfToken: configEl.getAttribute('data-csrf-token'),
+            updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
+        };
 
-    document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
-        zone.addEventListener("dragover", onDragOver);
-        zone.addEventListener("drop", (event) => {
-            const newPriority = parseInt(zone.dataset.priority);
-            onDrop(event, newPriority);
+        document.querySelectorAll(".task-card").forEach(card => {
+            card.addEventListener("dragstart", onDragStart);
         });
-    });
+
+        document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
+            zone.addEventListener("dragover", onDragOver);
+
+            zone.addEventListener("drop", (event) => {
+                const newPriority = parseInt(zone.dataset.priority);
+                onDrop(event, newPriority);
+            });
+        });
+    }
 });
+
 
 
 function onDragStart(event) {
