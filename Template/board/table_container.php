@@ -147,7 +147,7 @@ foreach ($tasks as $task) {
 
         <h4><?= $info['title'] ?></h4>
 
-        <?php foreach ($tasks_by_priority[$priority] as $task): ?>
+        <?php foreach ($tasks_by_priority[$priority] as $task): ?>       
             <div class="task-card" draggable="true"
                  data-task-id="<?= $task['id'] ?>"
                  data-column-id="<?= $task['column_id'] ?>"
@@ -193,8 +193,9 @@ foreach ($tasks as $task) {
 
 <div id="eisenhower-config"
      data-csrf-token="<?= $this->app->config('csrf_token') ?>"
-     data-update-priority-url="<?= $this->url->href('BacklogBoardController', 'updatePriority', ['plugin' => 'eisenhower']) ?>"
-     data-move-task-url="<?= $this->url->href('BacklogBoardController', 'moveTask', ['plugin' => 'eisenhower']) ?>">
+     data-update-priority-url="<?= $this->url->href('BacklogBoardController', 'updatePriority', [], 'Eisenhower') ?>"
+     data-move-task-url="<?= $this->url->href('BacklogBoardController', 'moveTask', [], 'Eisenhower') ?>">
+
 </div>
 
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
