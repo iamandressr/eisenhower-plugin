@@ -35,9 +35,17 @@ function onDragOver(event) {
     event.preventDefault();
 }
 
+let onDropCallCount = 0;
+
 function onDrop(event, newPriority) {
     event.preventDefault();
     event.stopPropagation();
+
+    if (onDropCallCount > 0) {
+        console.log('onDrop ignored due to duplicate call');
+        return;
+    }
+    onDropCallCount++;
 
     const taskId = event.dataTransfer.getData("text/plain");
     const csrfToken = window.eisenhowerConfig.csrfToken;
@@ -67,8 +75,12 @@ function onDrop(event, newPriority) {
     .catch(err => {
         console.error('Fetch error:', err);
         alert("Error al actualizar la prioridad");
+    })
+    .finally(() => {
+        onDropCallCount = 0; // reset para siguiente uso
     });
 }
+
 
 
 // Función separada, fuera del onDrop
