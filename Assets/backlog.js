@@ -50,7 +50,7 @@ function onDrop(event, newPriority) {
     .then(res => {
         console.log('Fetch response:', res);
         if (res.ok) {
-            location.reload();
+            //location.reload();
         } else {
             alert("Error al actualizar la prioridad");
         }
