@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
 function onDragStart(event) {
     const taskId = event.currentTarget.dataset.taskId;
     event.dataTransfer.setData("text/plain", taskId);
@@ -29,6 +30,7 @@ function onDragOver(event) {
 
 function onDrop(event, newPriority) {
     event.preventDefault();
+    event.stopPropagation();
 
     const taskId = event.dataTransfer.getData("text/plain");
     const csrfToken = window.eisenhowerConfig.csrfToken;
