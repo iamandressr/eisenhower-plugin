@@ -1,5 +1,7 @@
 <?php
 $tasks = $this->task->taskFinderModel->getAll($project['id']);
+$backlogColumnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
+$backlogSwimlaneId = $this->swimlaneModel->getIdByName($project['id'], 'Backlog_Swimlane');
 
 $tasks_by_priority = [
     0 => [],
