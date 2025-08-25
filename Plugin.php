@@ -29,19 +29,30 @@ class Plugin extends Base
         //CONFIG HOOK
         //$this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
         
-        $projects = $this->projectModel->getAllByStatus(1); //get all projects that are active
-        foreach ($projects as $project) {
-            if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
-               $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
-               $tasksInColumn = $this->projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
-               foreach($tasksInColumn as $task) {
-                     $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
-                     if ($swimlane['position'] !== 1) {
-                         $this->taskPositionModel->movePosition($project['id'], $task['id'], $columnId , 1, $this->swimlaneModel->getByName($project['id'], "Backlog_swimlane")['id'], true, false); 
-                     }
-                }
+        $projects = $this->projectModel->getAllByStatus(1); 
+$projectUsesBacklogBoardModel = new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($this->container);
+
+foreach ($projects as $project) {
+    if ($projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
+        $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
+        $tasksInColumn = $projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
+        foreach($tasksInColumn as $task) {
+            $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
+            if ($swimlane['position'] !== 1) {
+                $this->taskPositionModel->movePosition(
+                    $project['id'], 
+                    $task['id'], 
+                    $columnId , 
+                    1, 
+                    $this->swimlaneModel->getByName($project['id'], "Backlog_swimlane")['id'], 
+                    true, 
+                    false
+                ); 
             }
         }
+    }
+}
+
     }  
 
     public function getClasses()
