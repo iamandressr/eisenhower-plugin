@@ -1,8 +1,8 @@
-function handleDrop(event) {
-    const zone = event.currentTarget;
-    const newPriority = parseInt(zone.dataset.priority);
-    onDrop(event, newPriority);
-}
+//function handleDrop(event) {
+//    const zone = event.currentTarget;
+//    const newPriority = parseInt(zone.dataset.priority);
+//    onDrop(event, newPriority);
+//}
 
 document.addEventListener("DOMContentLoaded", () => {
     const configEl = document.getElementById('eisenhower-config');
