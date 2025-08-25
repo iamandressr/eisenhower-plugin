@@ -19,7 +19,7 @@ class Plugin extends Base
         
         $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
         //$this->template->setTemplateOverride('column/index','eisenhower:column/index');
-        $this->template->setTemplateOverride('swimlane/table','eisenhower:swimlane/table');
+        //$this->template->setTemplateOverride('swimlane/table','eisenhower:swimlane/table');
         $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
         $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
         //$this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
