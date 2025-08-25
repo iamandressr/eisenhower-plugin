@@ -22,7 +22,7 @@ class Plugin extends Base
         $this->template->setTemplateOverride('swimlane/table','eisenhower:swimlane/table');
         $this->hook->on('template:layout:js', array('template' => 'plugins/Eisenhower/Assets/backlog.js'));
         $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
-        $this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
+        //$this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
         $this->route->addRoute('/eisenhower/updatePriority', 'BacklogBoardController', 'updatePriority', 'Eisenhower');
 
         
