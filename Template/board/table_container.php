@@ -2,11 +2,15 @@
 $tasks = $this->task->taskFinderModel->getAll($project['id']);
 
 // Buscar columna y swimlane Backlog
-$backlogColumn = $this->columnModel->getByTitle($project['id'], 'Backlog_Board');
+$columnModel = new \Kanboard\Model\ColumnModel($this->container);
+$swimlaneModel = new \Kanboard\Model\SwimlaneModel($this->container);
+
+$backlogColumn = $columnModel->getByTitle($project['id'], 'Backlog_Board');
 $backlogColumnId = $backlogColumn ? $backlogColumn['id'] : 0;
 
-$backlogSwimlane = $this->swimlaneModel->getByName($project['id'], 'Backlog_Swimlane');
+$backlogSwimlane = $swimlaneModel->getByName($project['id'], 'Backlog_Swimlane');
 $backlogSwimlaneId = $backlogSwimlane ? $backlogSwimlane['id'] : 0;
+
 
 $tasks_by_priority = [
     0 => [],
