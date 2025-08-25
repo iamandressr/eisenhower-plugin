@@ -11,6 +11,14 @@ $backlogColumnId = $backlogColumn ? $backlogColumn['id'] : 0;
 $backlogSwimlane = $swimlaneModel->getByName($project['id'], 'Backlog_Swimlane');
 $backlogSwimlaneId = $backlogSwimlane ? $backlogSwimlane['id'] : 0;
 
+$this->response->html($this->template->render('Eisenhower:board/table_container', [
+    'project' => $project,
+    'tasks' => $this->task->taskFinderModel->getAll($project['id']),
+    'backlogColumnId' => $backlogColumnId,
+    'backlogSwimlaneId' => $backlogSwimlaneId
+]));
+
+
 
 $tasks_by_priority = [
     0 => [],
