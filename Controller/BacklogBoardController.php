@@ -201,4 +201,18 @@ public function moveTask()
     return $this->response->json(['success' => true]);
 }
 
+protected $columnModel;
+protected $swimlaneModel;
+protected $taskPositionModel;
+protected $projectUsesBacklogBoardModel;
+
+public function __construct($container)
+{
+    parent::__construct($container);
+    $this->columnModel = $container['columnModel'];
+    $this->swimlaneModel = $container['swimlaneModel'];
+    $this->taskPositionModel = $container['taskPositionModel'];
+    $this->projectUsesBacklogBoardModel = new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($container);
+}
+
 }
