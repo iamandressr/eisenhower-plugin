@@ -42,14 +42,14 @@ class Plugin extends Base
                 }
             }
         }
-    }
+    }  
 
     public function getClasses()
 {
     return [
-        'Plugin\Eisenhower\Model' => [
-            'ProjectUsesBacklogBoardModel',
-        ],
+        //'Plugin\Eisenhower\Model' => [
+        //    'ProjectUsesBacklogBoardModel',
+        //],
         'Plugin\Eisenhower\Controller' => [
             'BacklogBoardController',
         ],
