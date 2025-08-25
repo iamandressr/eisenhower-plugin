@@ -38,6 +38,13 @@ function onDrop(event, newPriority) {
 
     console.log('onDrop:', taskId, newPriority);
 
+    // Mover visualmente la tarea
+    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+    const zone = event.currentTarget;
+    if (taskCard) {
+        zone.appendChild(taskCard);
+    }
+
     fetch(updatePriorityUrl, {
         method: "POST",
         headers: {
@@ -49,3 +56,4 @@ function onDrop(event, newPriority) {
     .then(res => res.ok ? console.log('Actualizado') : alert('Error al actualizar'))
     .catch(err => alert('Error de red', err));
 }
+
