@@ -56,7 +56,9 @@ foreach ($tasks as $task) {
          id="<?= $info['id'] ?>"
          style="grid-area: <?= $info['id'] ?>;
          background-color: <?= $colors[$priority] ?>;"
-         data-priority="<?= $priority ?>">
+         data-priority="<?= $priority ?>"
+         data-column-id="<?= $backlogColumnId ?>"    
+         data-swimlane-id="<?= $backlogSwimlaneId ?>">
 
         <h4><?= $info['title'] ?></h4>
 

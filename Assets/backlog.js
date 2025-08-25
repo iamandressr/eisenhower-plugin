@@ -36,8 +36,9 @@ function onDrop(event, newPriority) {
     const taskId = event.dataTransfer.getData("text/plain");
     const zone = event.currentTarget;
 
-    const columnId = zone.dataset.columnId;
-    const swimlaneId = zone.dataset.swimlaneId;
+    // Mapear prioridad → columna y swimlane
+    const columnId = parseInt(zone.dataset.columnId, 10);
+    const swimlaneId = parseInt(zone.dataset.swimlaneId, 10);
 
     // Posición: al final del cuadrante
     const taskCardsInZone = Array.from(zone.querySelectorAll('.task-card'));
@@ -54,8 +55,8 @@ function onDrop(event, newPriority) {
         },
         body: JSON.stringify({
             task_id: parseInt(taskId),
-            column_id: parseInt(columnId),
-            swimlane_id: parseInt(swimlaneId),
+            column_id: columnId,
+            swimlane_id: swimlaneId,
             position: position
         })
     })
@@ -68,5 +69,6 @@ function onDrop(event, newPriority) {
         zone.appendChild(taskCard);
     }
 }
+
 
 
