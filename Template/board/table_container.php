@@ -19,93 +19,6 @@ foreach ($tasks as $task) {
 
 <hr>
 
-<style>
-.eisenhower-container {
-    display: grid;
-    grid-template-columns: 35px 1fr 1fr;
-    grid-template-rows: 30px 1fr 1fr;
-    grid-template-areas:
-        "corner urgente nourgente"
-        "importante do-now schedule"
-        "noimportante delegate eliminate";
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.corner {
-    grid-area: corner;
-}
-
-.urgente {
-    grid-area: urgente;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1em;
-    user-select: none;
-}
-
-.nourgente {
-    grid-area: nourgente;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1em;
-    user-select: none;
-}
-
-.importante {
-    grid-area: importante;
-    writing-mode: vertical-rl;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1em;
-    padding-top: 20px;
-    user-select: none;
-}
-
-.noimportante {
-    grid-area: noimportante;
-    writing-mode: vertical-rl;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1em;
-    padding-top: 20px;
-    user-select: none;
-}
-
-.eisenhower-quadrant {
-    border: 1px solid #ccc;
-    padding: 10px;
-    min-height: 200px;
-    background: #f9f9f9;
-    overflow-y: auto;
-}
-
-.eisenhower-quadrant h4 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    font-weight: normal;
-    color: #444;
-    user-select: none;
-}
-
-.task-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    cursor: grab;
-}
-
-.task-card small {
-    color: #666;
-    font-style: italic;
-    display: block;
-    margin-top: 3px;
-}
-</style>
-
 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
     <a href="/?controller=TaskCreationController&amp;action=show&amp;project_id=1" class="js-modal-large" title=""><i class="fa fa-plus fa-fw js-modal-large" aria-hidden="true"></i>Añadir una nueva tarea</a>
 
@@ -199,3 +112,4 @@ foreach ($tasks as $task) {
 </div>
 
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
+<style src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.css></style> 
