@@ -32,28 +32,41 @@ function handleDrop(event) {
 
 function onDrop(event, newPriority) {
     event.preventDefault();
+
     const taskId = event.dataTransfer.getData("text/plain");
-    const csrfToken = window.eisenhowerConfig.csrfToken;
-    const updatePriorityUrl = window.eisenhowerConfig.updatePriorityUrl;
-
-    console.log('onDrop:', taskId, newPriority);
-
-    // Mover visualmente la tarea
-    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
     const zone = event.currentTarget;
-    if (taskCard) {
-        zone.appendChild(taskCard);
-    }
 
-    fetch(updatePriorityUrl, {
+    const columnId = zone.dataset.columnId;
+    const swimlaneId = zone.dataset.swimlaneId;
+
+    // Posición: al final del cuadrante
+    const taskCardsInZone = Array.from(zone.querySelectorAll('.task-card'));
+    const position = taskCardsInZone.length + 1;
+
+    const csrfToken = window.eisenhowerConfig.csrfToken;
+    const moveTaskUrl = document.getElementById('eisenhower-config').dataset.moveTaskUrl;
+
+    fetch(moveTaskUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-Token": csrfToken
         },
-        body: JSON.stringify({ task_id: taskId, priority: newPriority })
+        body: JSON.stringify({
+            task_id: parseInt(taskId),
+            column_id: parseInt(columnId),
+            swimlane_id: parseInt(swimlaneId),
+            position: position
+        })
     })
-    .then(res => res.ok ? console.log('Actualizado') : alert('Error al actualizar'))
+    .then(res => res.ok ? console.log('Task moved!') : alert('Error al mover tarea'))
     .catch(err => alert('Error de red', err));
+
+    // Mover visualmente
+    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+    if (taskCard) {
+        zone.appendChild(taskCard);
+    }
 }
+
 
