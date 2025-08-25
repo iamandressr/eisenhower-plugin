@@ -35,17 +35,17 @@ function onDragOver(event) {
     event.preventDefault();
 }
 
-let onDropCallCount = 0;
+//let onDropCallCount = 0;
 
 function onDrop(event, newPriority) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (onDropCallCount > 0) {
-        console.log('onDrop ignored due to duplicate call');
-        return;
-    }
-    onDropCallCount++;
+    //if (onDropCallCount > 0) {
+    //    console.log('onDrop ignored due to duplicate call');
+    //    return;
+    //}
+    //onDropCallCount++;
 
     const taskId = event.dataTransfer.getData("text/plain");
     const csrfToken = window.eisenhowerConfig.csrfToken;
