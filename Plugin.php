@@ -27,7 +27,7 @@ class Plugin extends Base
 
         
         //CONFIG HOOK
-        $this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
+        //$this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
         
         $projects = $this->projectModel->getAllByStatus(1); //get all projects that are active
         foreach ($projects as $project) {
