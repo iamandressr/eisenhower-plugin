@@ -34,19 +34,19 @@ class Plugin extends Base
         //CONFIG HOOK
         //$this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
         
-        $projects = $this->projectModel->getAllByStatus(1); 
-        foreach ($projects as $project) {
-            if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
-               $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
-               $tasksInColumn = $this->projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
-               foreach($tasksInColumn as $task) {
-                     $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
-                     if ($swimlane['position'] !== 1) {
-                         $this->taskPositionModel->movePosition($project['id'], $task['id'], $columnId , 1, $this->swimlaneModel->getByName($project['id'], "Backlog_swimlane")['id'], true, false); 
-                     }
-                }
-            }
-        }
+        //$projects = $this->projectModel->getAllByStatus(1); 
+        //foreach ($projects as $project) {
+        //    if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
+        //       $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
+        //       $tasksInColumn = $this->projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
+        //       foreach($tasksInColumn as $task) {
+        //             $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
+        //             if ($swimlane['position'] !== 1) {
+        //                 $this->taskPositionModel->movePosition($project['id'], $task['id'], $columnId , 1, $this->swimlaneModel->getByName($project['id'], "Backlog_swimlane")['id'], true, false); 
+        //             }
+        //        }
+        //    }
+        //}
 
          // Hook seguro: mover tareas después de que Kanboard haya cargado los servicios
         $this->hook->on('template:layout:begin', function() {
