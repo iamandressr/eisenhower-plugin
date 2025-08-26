@@ -16,6 +16,11 @@ class Plugin extends Base
 {
     public function initialize()
     {
+
+        // REGISTRO DEL MODEL EN EL CONTAINER
+    $this->container['projectUsesBacklogBoardModel'] = function ($c) {
+        return new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($c);
+    };
         
         $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
         //$this->template->setTemplateOverride('column/index','eisenhower:column/index');
@@ -29,7 +34,7 @@ class Plugin extends Base
         //CONFIG HOOK
         //$this->template->hook->attach('template:config:board', 'backlog:config/board_name');    
         
-        $projects = $this->projectModel->getAllByStatus(1); //get all projects that are active
+        $projects = $this->projectModel->getAllByStatus(1); 
         foreach ($projects as $project) {
             if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
                $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
