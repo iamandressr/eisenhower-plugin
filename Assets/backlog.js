@@ -59,7 +59,7 @@ function onDrop(event, newPriority) {
             position: position
         })
     })
-    .then(res => res.ok ? console.log('Task moved!') : alert('Error al mover tarea'))
+    .then(res => res.ok ? console.log('Task moved!', columnId, task_id, swimlane_id ) : alert('Error al mover tarea'))
     .catch(err => alert('Error de red', err));
 
     // Mover visualmente
