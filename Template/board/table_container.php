@@ -1,6 +1,6 @@
 <?php
 $tasks = $this->task->taskFinderModel->getAll($project['id']);
-
+ 
 $tasks_by_priority = [
     0 => [],
     1 => [],
