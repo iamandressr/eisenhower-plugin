@@ -18,9 +18,9 @@ class Plugin extends Base
     {
 
         // REGISTRO DEL MODEL EN EL CONTAINER
-    $this->container['projectUsesBacklogBoardModel'] = function ($c) {
+        $this->container['projectUsesBacklogBoardModel'] = function ($c) {
         return new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($c);
-    };
+        };
         
         $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
         //$this->template->setTemplateOverride('column/index','eisenhower:column/index');
@@ -47,6 +47,31 @@ class Plugin extends Base
                 }
             }
         }
+
+         // Hook seguro: mover tareas después de que Kanboard haya cargado los servicios
+        $this->hook->on('template:layout:begin', function() {
+            $projects = $this->projectModel->getAllByStatus(1);
+            foreach ($projects as $project) {
+                if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
+                    $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
+                    $tasksInColumn = $this->projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
+                    foreach ($tasksInColumn as $task) {
+                        $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
+                        if ($swimlane['position'] !== 1) {
+                            $this->taskPositionModel->movePosition(
+                                $project['id'],
+                                $task['id'],
+                                $columnId,
+                                1,
+                                $this->swimlaneModel->getByName($project['id'], "Backlog_swimlane")['id'],
+                                true,
+                                false
+                            );
+                        }
+                    }
+                }
+            }
+        });
     }  
 
     public function getClasses()
