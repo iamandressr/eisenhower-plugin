@@ -146,7 +146,6 @@ class BacklogBoardController extends BaseController {
         'project_id' => $project_id,
         'title' => $title,
         'priority' => $priority,
-        // Opcional: asignado, fechas, etc.
     ];
 
     $task_id = $this->taskCreation->create($values);
