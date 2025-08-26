@@ -18,7 +18,7 @@ class Plugin extends Base
     {
 
         // REGISTRO DEL MODEL EN EL CONTAINER
-        $this->container['projectUsesBacklogBoardModel'] = function ($c) {
+        $this->container['ProjectUsesBacklogBoardModel'] = function ($c) {
         return new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($c);
         };
         
@@ -52,9 +52,9 @@ class Plugin extends Base
         $this->hook->on('template:layout:begin', function() {
             $projects = $this->projectModel->getAllByStatus(1);
             foreach ($projects as $project) {
-                if ($this->projectUsesBacklogBoardModel->backlogIsset($project['id'])) {
+                if ($this->container['ProjectUsesBacklogBoardModel']->backlogIsset($project['id'])) {
                     $columnId = $this->columnModel->getColumnIdByTitle($project['id'], 'Backlog_Board');
-                    $tasksInColumn = $this->projectUsesBacklogBoardModel->getTasksInColumn($project['id'], $columnId);
+                    $tasksInColumn = $this->container['ProjectUsesBacklogBoardModel']->getTasksInColumn($project['id'], $columnId);
                     foreach ($tasksInColumn as $task) {
                         $swimlane = $this->swimlaneModel->getById($task['swimlane_id']);
                         if ($swimlane['position'] !== 1) {
