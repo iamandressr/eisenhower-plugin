@@ -18,9 +18,9 @@ class Plugin extends Base
     {
 
         // REGISTRO DEL MODEL EN EL CONTAINER
-        $this->container['ProjectUsesBacklogBoardModel'] = function ($c) {
-        return new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($c);
-        };
+        //$this->container['ProjectUsesBacklogBoardModel'] = function ($c) {
+        //return new \Kanboard\Plugin\Eisenhower\Model\ProjectUsesBacklogBoardModel($c);
+        //};
         
         $this->template->setTemplateOverride('board/table_container','eisenhower:board/table_container');
         //$this->template->setTemplateOverride('column/index','eisenhower:column/index');
