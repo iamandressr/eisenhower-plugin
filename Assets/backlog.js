@@ -46,19 +46,18 @@ function onDrop(event, newPriority) {
     const csrfToken = window.eisenhowerConfig.csrfToken;
     const moveTaskUrl = document.getElementById('eisenhower-config').dataset.moveTaskUrl;
 
-    fetch(moveTaskUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrfToken
-        },
-        body: JSON.stringify({
-            task_id: parseInt(taskId),
-            column_id: parseInt(columnId),
-            swimlane_id: parseInt(swimlaneId),
-            position: position
-        })
+    fetch(window.eisenhowerConfig.updatePriorityUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken
+    },
+    body: JSON.stringify({
+        task_id: parseInt(taskId),
+        priority: newPriority
     })
+})
+
     .then(res => res.ok ? console.log('Tarea actualizada (Vista)') : alert('Error al mover tarea'))
     .catch(err => alert('Error de red', err));
 
