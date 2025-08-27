@@ -105,7 +105,7 @@ foreach ($tasks as $task) {
 </div>
 
 <div id="eisenhower-config"
-     data-csrf-token="<?= $this->app->csrfToken() ?>"
+     data-csrf-token="<?= $this->app->config('csrf_token') ?>"
      data-update-priority-url="<?= $this->url->href('BacklogBoardController', 'updatePriority', [], 'Eisenhower') ?>"
      data-move-task-url="<?= $this->url->href('BacklogBoardController', 'moveTask', [], 'Eisenhower') ?>">
 

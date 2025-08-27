@@ -29,8 +29,6 @@ class Plugin extends Base
         $this->hook->on('template:layout:css', array('template' => 'plugins/Eisenhower/Assets/backlog.css'));
         //$this->template->hook->attach('template:project:dropdown', 'eisenhower:board/menu');
         $this->route->addRoute('/eisenhower/updatePriority', 'BacklogBoardController', 'updatePriority', 'Eisenhower');
-        $this->route->addRoute('/eisenhower/moveTask', 'BacklogBoardController', 'moveTask', 'Eisenhower');
-
 
         
         //CONFIG HOOK
