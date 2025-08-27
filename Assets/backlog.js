@@ -46,36 +46,22 @@ function onDrop(event, newPriority) {
     const csrfToken = window.eisenhowerConfig.csrfToken;
     const moveTaskUrl = document.getElementById('eisenhower-config').dataset.moveTaskUrl;
 
-    fetch(document.getElementById('eisenhower-config').dataset.moveTaskUrl, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken
-    },
-    body: JSON.stringify({
-        task_id: parseInt(taskId),
-        column_id: parseInt(zone.dataset.columnId),
-        swimlane_id: parseInt(zone.dataset.swimlaneId),
-        position: position
-    })
+    fetch(moveTaskUrl, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "X-CSRF-Token": csrfToken
+  },
+  body: JSON.stringify({
+    task_id: parseInt(taskId),
+    column_id: parseInt(columnId),
+    swimlane_id: parseInt(swimlaneId),
+    position: position
+  })
 })
-.then(res => {
-    if (!res.ok) throw new Error("Error al mover tarea");
-    // 👉 Después de mover, actualiza prioridad
-    return fetch(window.eisenhowerConfig.updatePriorityUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrfToken
-        },
-        body: JSON.stringify({
-            task_id: parseInt(taskId),
-            priority: newPriority
-        })
-    });
-})
-.then(res => res.ok ? console.log('Tarea movida y prioridad actualizada') : alert('Error al actualizar prioridad'))
+.then(res => res.ok ? console.log('Tarea movida') : alert('Error al mover tarea'))
 .catch(err => alert('Error de red: ' + err));
+
 
 
     // Mover visualmente
