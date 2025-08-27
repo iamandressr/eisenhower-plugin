@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const configEl = document.getElementById('eisenhower-config');
-    window.eisenhowerConfig = {
-        csrfToken: configEl.getAttribute('data-csrf-token'),
-        updatePriorityUrl: configEl.getAttribute('data-update-priority-url'),
-    };
+    const csrfToken = configEl.dataset.csrfToken;
+    const moveTaskUrl = configEl.dataset.moveTaskUrl;
+    const updatePriorityUrl = configEl.dataset.updatePriorityUrl;
 
     document.querySelectorAll(".task-card").forEach(card => {
         card.addEventListener("dragstart", onDragStart);
@@ -11,62 +10,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".eisenhower-quadrant").forEach(zone => {
         zone.addEventListener("dragover", onDragOver);
-        zone.addEventListener("drop", handleDrop);
+        zone.addEventListener("drop", async event => {
+            event.preventDefault();
+            const zoneEl = event.currentTarget;
+            const newPriority = parseInt(zoneEl.dataset.priority, 10);
+            const taskId = event.dataTransfer.getData("text/plain");
+
+            const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+            if (!taskCard) return;
+
+            const columnId = taskCard.dataset.columnId;
+            const swimlaneId = taskCard.dataset.swimlaneId;
+            const position = zoneEl.querySelectorAll('.task-card').length + 1;
+
+            try {
+                // 1. Mover tarea en Kanboard
+                let res = await fetch(moveTaskUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken
+                    },
+                    body: JSON.stringify({
+                        task_id: parseInt(taskId),
+                        column_id: parseInt(columnId),
+                        swimlane_id: parseInt(swimlaneId),
+                        position: position
+                    })
+                });
+                if (!res.ok) throw new Error("Error al mover tarea");
+
+                // 2. Actualizar prioridad
+                res = await fetch(updatePriorityUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken
+                    },
+                    body: JSON.stringify({
+                        task_id: parseInt(taskId),
+                        priority: newPriority
+                    })
+                });
+                if (!res.ok) throw new Error("Error al actualizar prioridad");
+
+                // 3. Actualizar visualmente solo si todo salió bien
+                zoneEl.appendChild(taskCard);
+                taskCard.dataset.position = position;
+                taskCard.dataset.priority = newPriority;
+
+                console.log('Tarea movida y prioridad actualizada');
+            } catch (err) {
+                alert(err);
+            }
+        });
     });
 });
 
 function onDragStart(event) {
-    const taskId = event.currentTarget.dataset.taskId;
-    event.dataTransfer.setData("text/plain", taskId);
+    event.dataTransfer.setData("text/plain", event.currentTarget.dataset.taskId);
 }
 
 function onDragOver(event) {
     event.preventDefault();
-}
-
-function handleDrop(event) {
-    const zone = event.currentTarget;
-    const newPriority = parseInt(zone.dataset.priority, 10);
-    onDrop(event, newPriority);
-}
-
-function onDrop(event, newPriority) {
-    event.preventDefault();
-
-    const taskId = event.dataTransfer.getData("text/plain");
-    const zone = event.currentTarget;
-
-    const columnId = zone.dataset.columnId;
-    const swimlaneId = zone.dataset.swimlaneId;
-
-    // Posición: al final del cuadrante
-    const taskCardsInZone = Array.from(zone.querySelectorAll('.task-card'));
-    const position = taskCardsInZone.length + 1;
-
-    const csrfToken = window.eisenhowerConfig.csrfToken;
-    const moveTaskUrl = document.getElementById('eisenhower-config').dataset.moveTaskUrl;
-
-    fetch(moveTaskUrl, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "X-CSRF-Token": csrfToken
-  },
-  body: JSON.stringify({
-    task_id: parseInt(taskId),
-    column_id: parseInt(columnId),
-    swimlane_id: parseInt(swimlaneId),
-    position: position
-  })
-})
-.then(res => res.ok ? console.log('Tarea movida') : alert('Error al mover tarea'))
-.catch(err => alert('Error de red: ' + err));
-
-
-
-    // Mover visualmente
-    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
-    if (taskCard) {
-        zone.appendChild(taskCard);
-    }
 }
