@@ -104,11 +104,13 @@ foreach ($tasks as $task) {
     <div class="noimportante"><?= t('No importante') ?></div>
 </div>
 
+<?php $csrfToken = $this->helper->csrf->getToken(); ?>
 <div id="eisenhower-config"
-     data-csrf-token="<?= $this->app->csrf->getToken() ?>"
+     data-csrf-token="<?= $csrfToken ?>"
      data-update-priority-url="<?= $this->url->href('BacklogBoardController', 'updatePriority', [], 'Eisenhower') ?>"
      data-move-task-url="<?= $this->url->href('BacklogBoardController', 'moveTask', [], 'Eisenhower') ?>">
 </div>
+
 
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
 <link rel="stylesheet" href="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.css">
