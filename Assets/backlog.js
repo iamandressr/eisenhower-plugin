@@ -71,7 +71,7 @@ fetch(document.getElementById('eisenhower-config').dataset.moveTaskUrl, {
         swimlane_id: parseInt(zone.dataset.swimlaneId),
         position: taskCardsInZone.length + 1
     })
-});
+})
 
     .then(res => res.ok ? console.log('Tarea actualizada (Vista)') : alert('Error al mover tarea'))
     .catch(err => alert('Error de red', err));
