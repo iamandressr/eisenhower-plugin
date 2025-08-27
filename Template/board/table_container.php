@@ -112,4 +112,4 @@ foreach ($tasks as $task) {
 </div>
 
 <script src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.js"></script>
-<style src="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.css></style> 
+<link rel="stylesheet" href="<?= $this->url->dir() ?>plugins/Eisenhower/Assets/backlog.css">
