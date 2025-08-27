@@ -56,7 +56,22 @@ function onDrop(event, newPriority) {
         task_id: parseInt(taskId),
         priority: newPriority
     })
-})
+});
+
+// 2. Mover tarea en Kanboard real
+fetch(document.getElementById('eisenhower-config').dataset.moveTaskUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken
+    },
+    body: JSON.stringify({
+        task_id: parseInt(taskId),
+        column_id: parseInt(zone.dataset.columnId),
+        swimlane_id: parseInt(zone.dataset.swimlaneId),
+        position: taskCardsInZone.length + 1
+    })
+});
 
     .then(res => res.ok ? console.log('Tarea actualizada (Vista)') : alert('Error al mover tarea'))
     .catch(err => alert('Error de red', err));
