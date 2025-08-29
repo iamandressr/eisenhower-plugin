@@ -99,7 +99,7 @@ foreach ($tasks as $task) {
             </div>
         <?php endforeach ?>
     </div>
-<?php endforeach ?>
+<?php endforeach ?> 
 
     <div class="noimportante"><?= t('No importante') ?></div>
 </div>
