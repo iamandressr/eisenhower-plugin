@@ -61,7 +61,7 @@ foreach ($tasks as $task) {
         <h4><?= $info['title'] ?></h4>
 
         <?php foreach ($tasks_by_priority[$priority] as $task): ?>       
-            <div class="task-card" draggable="true"
+            <div class="task-card" draggable="false"
                  data-task-id="<?= $task['id'] ?>"
                  data-column-id="<?= $task['column_id'] ?>"
                  data-swimlane-id="<?= $task['swimlane_id'] ?>"
@@ -99,7 +99,7 @@ foreach ($tasks as $task) {
             </div>
         <?php endforeach ?>
     </div>
-<?php endforeach ?> 
+<?php endforeach ?>
 
     <div class="noimportante"><?= t('No importante') ?></div>
 </div>
