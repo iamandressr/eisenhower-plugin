@@ -70,8 +70,8 @@
 .eisenhower-quadrant {
     border: 1px solid #ccc;
     padding: 10px;
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 200px;
+    max-height: 200px;
     background: #f9f9f9;
     overflow-y: auto;
 }
