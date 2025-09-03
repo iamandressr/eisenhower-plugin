@@ -22,6 +22,14 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+.eisenhower-quadrant::-webkit-scrollbar {
+    width: 8px;
+}
+.eisenhower-quadrant::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
 /* table_container.php */
 
 .eisenhower-container {
